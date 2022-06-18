@@ -47,8 +47,8 @@ Set up a github account and repository to host this project and enable the CI/CD
 
 ### Push project to your Github repository
 1) In intellij, under the VCS tab, click "Git" and then "Manage Remotes"
-2) 
-3)
+2) Change remote address to your GitHub repo address
+3) Push to your repo
 
 ### Set up AWS and the necessary Services
 For this project, the Github Action function to deploy this app to AWS is stored in:
@@ -78,6 +78,9 @@ https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/d
 Task Execution IAM for ECS
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html
+
+### Deploy!
+Deploy and have fun!
 
 ## Solution Design
 
@@ -156,6 +159,20 @@ This RESTFUL api does the following:
 The front end is coded in HTML, CSS and JAVA. It uses JQUERY to do ajax requests to the backend APIs to retrieve the data for display.
 
 ### Set up CI/CD Pipeline
-This project uses GitHub actions to create the CI/CD pipeline
+This project uses GitHub actions to create the CI/CD pipeline. The CI starts from a push to this project's repository and ends at deployment of docker image to AWS ECS.
+
+The Github actions run in latest ubuntu environment.
+
+3 Workflows are used in this project:
+
+1) Build application
+   1) Uses open-JDK 18
+   2) Runs MAVEN clean and install to produce JAR package
+2) Dockerise 
+   1) Add Jar file to docker container and publish to GitHub Package repository for local testing
+3) Deploy to AWS ECS
+   1) Create a docker image and push to AWS Elastic Container repository
+   2) Fill in the new image ID in the Amazon ECS task definition
+   3) Deploy Amazon ECS task definition
 
 
