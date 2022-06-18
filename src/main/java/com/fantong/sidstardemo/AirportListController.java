@@ -18,7 +18,7 @@ import java.util.Scanner;
 @RestController
 public class AirportListController {
 
-    @PostMapping("/getAirports")
+    @PostMapping("/api/getAirports")
     public JSONObject getAirports(@RequestParam String apiKey){
         System.out.println("Start Handling get Airports request");
         JSONObject toRet = new JSONObject();

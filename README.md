@@ -32,7 +32,7 @@ It is built on JAVA with MAVEN, containerised in Docker and then hosted on AWS E
 The backend is built using JAVA with Spring Boot framework. It exposes two functions:
 
 ```http
-POST /getAirports
+POST /api/getAirports
 ```
 
 | Parameter | Type | Description |

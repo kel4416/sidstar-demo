@@ -2,7 +2,7 @@ $(document).ready(function () {
     $("#apikeyForm").submit(function(e){
         e.preventDefault()
         if($(apikeyInput).val() != ""){
-           $.post("../getAirports",{"apiKey": $("#apikeyInput").val()}, function(data){
+           $.post("/api/getAirports",{"apiKey": $("#apikeyInput").val()}, function(data){
                 if (data.hasOwnProperty("Error")){
                   alert("There is an error with retrieving data with this API KEY. Please try with another key")
                 }else{
@@ -19,7 +19,7 @@ $(document).ready(function () {
     $( "#sidStarFormSelect" ).change(function() {
         stdIntrutmentType = $( "#sidStarFormSelect option:selected").val()
         if(stdIntrutmentType == "sids" || stdIntrutmentType == "stars"){
-            $.post("../getTopTwoAssoWaypoints",{"icao":$("#sidStarFormSTinput").val(),"stdIntrutmentType":stdIntrutmentType,"apiKey":$("#apikeyInput").val()},function(data){
+            $.post("/api/getTopTwoAssoWaypoints",{"icao":$("#sidStarFormSTinput").val(),"stdIntrutmentType":stdIntrutmentType,"apiKey":$("#apikeyInput").val()},function(data){
                 if(data.hasOwnProperty("Error")){
                     alert("There is an error with retrieving data with this API KEY. Please try with another key")
                 }else{
@@ -46,7 +46,7 @@ $(document).ready(function () {
 function setupDataTable(){
     var airportsTable = $('#airportsTable').DataTable({
           ajax: {
-             url: '../getAirports',
+             url: '/api/getAirports',
              type: 'POST',
              data:{
                  "apiKey": $("#apikeyInput").val()

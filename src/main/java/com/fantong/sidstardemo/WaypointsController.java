@@ -14,7 +14,7 @@ import java.util.*;
 
 @RestController
 public class WaypointsController {
-    @PostMapping("/getTopTwoAssoWaypoints")
+    @PostMapping("/api/getTopTwoAssoWaypoints")
     public JSONObject getTopTwoAssoWaypoints(@RequestParam String apiKey,@RequestParam String icao,@RequestParam String stdIntrutmentType){
         System.out.println("Start getting top two associated Waypoints for Airport");
 
