@@ -1,9 +1,9 @@
 # sidstar-demo
 This is a web application that is used to retrieve a list of airports from ATMS and also find waypoints that has the highest and second highest number of association with the SIDs/STARs of a particular aiport.
 
-The backend is built with JAVA with MAVEN, containerised in Docker and then hosted on AWS Elastic Container Service.
+The backend is built using Java with Maven, and it adopts the Spring boot framework. The binary is containerised in a Docker image and then deployed to AWS Elastic Container Service.
 
-The front end is built with HTML, CSS and JS. Although it is segregated from backend code, it is deployed in the same container for ease of development.
+The front end is built with HTML, CSS and JS. Although it is segregated from the backend code, it is deployed in the same container for ease of development.
 
 ## Architecture
 
