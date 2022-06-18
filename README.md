@@ -27,12 +27,18 @@ It is built on JAVA with MAVEN, containerised in Docker and then hosted on AWS E
 ### Building the backend
 The backend is built using JAVA with Spring Boot framework. It exposes two functions:
 
-1) getAiports
+```http
+POST /getAirports
+```
+
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `apiKey` | `string` | **Required**. The API key to ATMS |
 
-2) getTopTwoAssoWaypoints
+```http
+POST /api/getTopTwoAssoWaypoints
+```
+
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `apiKey` | `string` | **Required**. The API key to ATMS |
