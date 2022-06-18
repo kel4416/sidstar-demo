@@ -16,12 +16,40 @@ It is built on JAVA with MAVEN, containerised in Docker and then hosted on AWS E
 
 ## Setup Guide
 
-### Download and install Intellij
+### Download and install Intellij Community Edition
+You can download and install Intellij Community Edition from here
+
+https://www.jetbrains.com/idea/download/#section=windows
 
 ### Pull from repository
+All the resources and dependencies are included in this project, so all you have to do is ask Intellij to clone this project.
+
+Instructions can be found here:
+https://blog.jetbrains.com/idea/2020/10/clone-a-project-from-github/
+
+### Set up Github Account
+Set up a github account and repository to host this project and enable the CI/CD pipeline.
+
+1) Sign up for github account at https://github.com/join
+2) After you log in, on the left plane, click "New"
+3) Key in your desired repository name, description, private or public setting and click "Create Repository".
+
+### Push project to your repository
+1) In intellij, under the VCS tab, click 
+2) Push this project to your repository
+
+![This is an image]{assets/sidstardemo.jpg}
+
+
 
 ### Set up AWS and the necessary Services
-
+To host this application on AWS, you need to create
+1) Elastic Repository
+   
+2) Elastic Container service
+   1) Cluster
+   2) Tasking Definition
+   3) Service
 
 ## Building the solution
 
