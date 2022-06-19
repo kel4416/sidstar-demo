@@ -85,7 +85,7 @@ public class WaypointsController {
                     }
                     System.out.println("the two counts are: " + topCount + " " + secondCount );
                     JSONObject toReturn = new JSONObject();
-                    toReturn.put("aiport","WSSS");
+                    toReturn.put("airport","WSSS");
 
                     JSONArray waypointsToReturn = new JSONArray();
                     for (Map.Entry<String, Integer> set : waypointsAssociationCount.entrySet()) {

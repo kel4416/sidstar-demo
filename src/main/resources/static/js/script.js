@@ -31,12 +31,15 @@ $(document).ready(function () {
                     }
                     content += "</tbody></table>"
 
-                    jsonRepresentation = "<h5>JSON DATA</h5><p id='jsonDataRetrieved'>" + JSON.stringify(data,null,2) + "'</p>"
+                    jsonRepresentation = "<h5>JSON DATA</h5><p id='jsonDataRetrieved'>" + JSON.stringify(data,null,2) + "</p>"
                     content += jsonRepresentation
 
                     kafkaButton = '<button type="button" id="kafkaButton" class="btn btn-danger">Post to Kafka</button><br/></br/>'
                     content += kafkaButton
 
+                    slackButton = '<button type="button" id="slackButton" class="btn btn-danger">Send Slack Notification</button><br/></br/>'
+
+                    content += slackButton
                     content += "</div>"
                     $("#sidStarModalInfo").html(content)
 
@@ -55,7 +58,19 @@ $(document).ready(function () {
                             }else{
                                 alert("Password cannot be empty")
                             }
-                    })
+                    });
+
+                    $("#slackButton").click(function(d){
+                        slackJSONData = '{"stdInstru":"' + $("#sidStarFormSelect").val().slice(0,-1).toUpperCase() + '",' + $("#jsonDataRetrieved").html().slice(1,-1) + '}'
+                        $.post("/api/sendSlackNotif",{"jsonData": slackJSONData}, function(data){
+                             if (data.hasOwnProperty("Error")){
+                               alert("There is an error with posting Slack Notif")
+                             }else{
+                               alert("Succesfully posted to Slack")
+                             }
+                        });
+
+                    });
                 }
             })
         }else{
