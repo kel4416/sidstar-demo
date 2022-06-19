@@ -17,10 +17,10 @@ import com.slack.api.webhook.WebhookPayloads;
 public class SlackController {
 
     @PostMapping("/api/sendSlackNotif")
-    public JSONObject sendSlackNotif(@RequestParam String jsonData){
+    public JSONObject sendSlackNotif(@RequestParam String jsonData, @RequestParam String webhookURL){
         JSONObject toRet = new JSONObject();
         try {
-            String webhookUrl = "https://hooks.slack.com/services/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";
+            String webhookUrl = webhookURL;
             JSONParser parser = new JSONParser();
             System.out.println(jsonData);
 

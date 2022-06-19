@@ -62,13 +62,19 @@ $(document).ready(function () {
 
                     $("#slackButton").click(function(d){
                         slackJSONData = '{"stdInstru":"' + $("#sidStarFormSelect").val().slice(0,-1).toUpperCase() + '",' + $("#jsonDataRetrieved").html().slice(1,-1) + '}'
-                        $.post("/api/sendSlackNotif",{"jsonData": slackJSONData}, function(data){
-                             if (data.hasOwnProperty("Error")){
-                               alert("There is an error with posting Slack Notif")
-                             }else{
-                               alert("Succesfully posted to Slack")
-                             }
-                        });
+                        var webHookURL=prompt("Please enter your Slack's webhookURL:");
+                        if (webHookURL!=null){
+                            $.post("/api/sendSlackNotif",{"jsonData": slackJSONData,"webhookURL",webHookURL}, function(data){
+                                 if (data.hasOwnProperty("Error")){
+                                   alert("There is an error with posting Slack Notif")
+                                 }else{
+                                   alert("Succesfully posted to Slack")
+                                 }
+                            });
+
+                        }else{
+                            alert("Webhook URL cannot be empty")
+                        }
 
                     });
                 }
