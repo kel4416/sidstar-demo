@@ -44,19 +44,25 @@ $(document).ready(function () {
                     $("#sidStarModalInfo").html(content)
 
                     $("#kafkaButton").click(function(d){
-                        var kafkaPwd=prompt("Please enter your Kafka password:");
-                            if (kafkaPwd!=null){
-                              kafkaMessage = '{"stdInstru":"' + $("#sidStarFormSelect").val().slice(0,-1).toUpperCase() + '",' + $("#jsonDataRetrieved").html().slice(1,-1) + '}'
+                        var kafkaUser=prompt("Please enter your CloudKarafka username:");
+                            if (kafkaUser!=null){
+                              var kafkaPwd=prompt("Please enter your Kafka password:");
+                              if(kafkaPwd != null){
+                                  kafkaMessage = '{"stdInstru":"' + $("#sidStarFormSelect").val().slice(0,-1).toUpperCase() + '",' + $("#jsonDataRetrieved").html().slice(1,-1) + '}'
 
-                              $.post("/api/postSIDSTARKafkaMessage",{"topic": "sidstar","jsonData":kafkaMessage,"password":kafkaPwd}, function(data){
-                                      if (data.hasOwnProperty("Error")){
-                                        alert("There is an error with posting to Kafka Server")
-                                      }else{
-                                        alert("Succesfully posted to Kafka Server")
-                                      }
-                                 });
+                                  $.post("/api/postSIDSTARKafkaMessage",{"topic": "sidstar","jsonData":kafkaMessage,"username":kafkaUser,"password":kafkaPwd}, function(data){
+                                          if (data.hasOwnProperty("Error")){
+                                            alert("There is an error with posting to CloudKarafka")
+                                          }else{
+                                            alert("Successfully posted message to CloudKarafka")
+                                          }
+                                  });
+                                 }else{
+                                    alert("Password cannot be empty")
+                                 }
+
                             }else{
-                                alert("Password cannot be empty")
+                                alert("Username cannot be empty")
                             }
                     });
 

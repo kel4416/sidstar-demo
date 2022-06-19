@@ -1,7 +1,7 @@
 # sidstar-demo
 
 ## Introduction
-A web application that retrieves and displays a list of airports from ATMS and also waypoints that has the highest and second highest number of association with the SIDs/STARs of a particular aiport.
+A web application that retrieves and displays a list of airports from ATMS and also waypoints that has the highest and second highest number of association with the SIDs/STARs of a particular aiport. This application also allows users to post waypoint association details to a pre-defined Kafka topic and Slack notification using their own webhook URL.
 
 The backend is built using Java with Maven, and it adopts the Spring boot framework. The binary is containerised in a Docker image and then deployed to AWS Elastic Container Service.
 
@@ -84,6 +84,16 @@ https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_r
 ### Deploy!
 Deploy and have fun!
 
+### Optional Functionalities
+#### Kafka Service
+Follow this guide to set up a free account at CloudKarafka and use the username and password to publish your kafka messages from this app
+https://www.cloudkarafka.com/blog/part2-2-apache-kafka-for-beginners-example-and-sample-code-java.html
+
+### Slack notification
+Follow this guide to set up your webhookURL to post slack notifications
+
+https://slack.com/help/articles/115005265063-Incoming-webhooks-for-Slack
+
 ## Solution Design
 
 ### Frameworks, Libraries and API
@@ -98,25 +108,50 @@ Deploy and have fun!
 
 
 ### Building the backend
-The backend is built using JAVA with Spring Boot framework. It exposes two RESTFUL APIs:
+The backend is built using JAVA with Spring Boot framework. It exposes four RESTFUL APIs:
 
 ```http
 POST /api/getAirports
 ```
+Retrieves the list of airport from ATMS
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `apiKey` | `string` | **Required**. The API key to ATMS |
-
+| Parameter | Type     | Description |
+| :--- |:---------| :--- |
+| `apiKey` | `String` | **Required**. The API key to ATMS |
 ```http
 POST /api/getTopTwoAssoWaypoints
 ```
+Finds the top 2 counts of waypoint associations with SID/STAR of an aiport and retrieves the waypoint names with said counts.
 
-| Parameter | Type | Description |
-| :--- | :--- | :--- |
-| `apiKey` | `string` | **Required**. The API key to ATMS |
-| `icao` | `string` | **Required**. The airport's icao for this query|
+| Parameter | Type     | Description |
+| :--- |:---------| :--- |
+| `apiKey` | `String` | **Required**. The API key to ATMS |
+| `icao` | `String` | **Required**. The airport's icao for this query|
 | `stdIntrutmentType` | `string` | **Required**. The choice of Standard Instrument for this query. Values accepted ["sids,"stars"] |
+
+
+```http
+POST /api/postSIDSTARKafkaMessage
+```
+Post a Kafka message to topic. Currently tested only with *Cloudkarafka*.
+
+| Parameter  | Type     | Description                                                                |
+|:-----------|:---------|:---------------------------------------------------------------------------|
+| `topic`    | `String` | **Required**. The topic to publish Kafka message                           |
+| `jsonData` | `String` | **Required**. The JSON that is produced in the waypoints association query |
+| `username` | `String` | **Required**. username for the Kafka instance                              |
+| `password` | `String` | **Required**. Password for Kafka instance                                  |
+
+```http
+POST /api/sendSlackNotif
+```
+Post a Slack notification with Slack webhookURL
+
+| Parameter  | Type     | Description                                                                |
+|:-----------|:---------|:---------------------------------------------------------------------------|
+| `webhookURL`    | `String` | **Required**. The webhook URL provided by Slack app                        |
+| `jsonData` | `String` | **Required**. The JSON that is produced in the waypoints association query |
+
 
 ### Backend Functions in detail
 
@@ -151,11 +186,39 @@ This RESTFUL api does the following:
    [
     {
      "name":string,
-     "count":string,
+     "count":int,
     },
  ]
 }
 ```
+#### /api/postSIDSTARKafkaMessage
+Topic is currently harded coded to ```<username>-sidstar```
+
+Posts to a kafka topic with the following format
+```javascript
+ {
+   "stdInstru":string, 
+   "topWaypoints": [ 
+      { 
+         "name": string, 
+         "count": int 
+      },
+     ], 
+   "airport": string 
+  }
+```
+
+#### /api/sendSlackNotif
+Post a Slack Notif to webhook URL. Data is formatted easy reading.
+
+E.g.
+
+![sidstar-slack screenshot](assets/sidstar-slack.png)
+
+For more details on how to customise your Slack notification layout, refer to the link below:
+
+https://app.slack.com/block-kit-builder
+
 
 ### Front end
 The front end is coded in HTML, CSS and JAVA. It uses JQUERY to do ajax requests to the backend APIs to retrieve the data for display.
