@@ -31,10 +31,31 @@ $(document).ready(function () {
                     }
                     content += "</tbody></table>"
 
-                    jsonRepresentation = "<h5>JSON DATA</h5><p>" + JSON.stringify(data,null,2) + "'</p>"
+                    jsonRepresentation = "<h5>JSON DATA</h5><p id='jsonDataRetrieved'>" + JSON.stringify(data,null,2) + "'</p>"
                     content += jsonRepresentation
+
+                    kafkaButton = '<button type="button" id="kafkaButton" class="btn btn-danger">Post to Kafka</button><br/></br/>'
+                    content += kafkaButton
+
                     content += "</div>"
                     $("#sidStarModalInfo").html(content)
+
+                    $("#kafkaButton").click(function(d){
+                        var kafkaPwd=prompt("Please enter your Kafka password:");
+                            if (kafkaPwd!=null){
+                              kafkaMessage = '{"stdInstru":"' + $("#sidStarFormSelect").val().slice(0,-1).toUpperCase() + '",' + $("#jsonDataRetrieved").html().slice(1,-1) + '}'
+
+                              $.post("/api/postSIDSTARKafkaMessage",{"topic": "sidstar","jsonData":kafkaMessage,"password":kafkaPwd}, function(data){
+                                      if (data.hasOwnProperty("Error")){
+                                        alert("There is an error with posting to Kafka Server")
+                                      }else{
+                                        alert("Succesfully posted to Kafka Server")
+                                      }
+                                 });
+                            }else{
+                                alert("Password cannot be empty")
+                            }
+                    })
                 }
             })
         }else{
@@ -64,7 +85,7 @@ function setupDataTable(){
      $('#airportsTable tbody').on('click', 'tr', function () {
 
              var data = airportsTable.row(this).data();
-             $("#sidStarModalTitle").html("Aiport ICAO: " + data["icao"])
+             $("#sidStarModalTitle").html(data["icao"])
              $("#sidStarFormSTinput").val(data["icao"])
              const sidStarModal = new bootstrap.Modal(document.getElementById('sidStarModal'), {})
              $("#sidStarFormSelect").val("default")
