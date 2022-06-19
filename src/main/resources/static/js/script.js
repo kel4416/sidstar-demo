@@ -64,7 +64,7 @@ $(document).ready(function () {
                         slackJSONData = '{"stdInstru":"' + $("#sidStarFormSelect").val().slice(0,-1).toUpperCase() + '",' + $("#jsonDataRetrieved").html().slice(1,-1) + '}'
                         var webHookURL=prompt("Please enter your Slack's webhookURL:");
                         if (webHookURL!=null){
-                            $.post("/api/sendSlackNotif",{"jsonData": slackJSONData,"webhookURL",webHookURL}, function(data){
+                            $.post("/api/sendSlackNotif",{"jsonData": slackJSONData,"webhookURL":webHookURL}, function(data){
                                  if (data.hasOwnProperty("Error")){
                                    alert("There is an error with posting Slack Notif")
                                  }else{
