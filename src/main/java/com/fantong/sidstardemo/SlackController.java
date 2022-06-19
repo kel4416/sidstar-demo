@@ -20,7 +20,7 @@ public class SlackController {
     public JSONObject sendSlackNotif(@RequestParam String jsonData){
         JSONObject toRet = new JSONObject();
         try {
-            String webhookUrl = "https://hooks.slack.com/services/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";
+            String webhookUrl = "https://hooks.slack.com/services/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";
             JSONParser parser = new JSONParser();
             System.out.println(jsonData);
 
