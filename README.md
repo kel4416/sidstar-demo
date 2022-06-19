@@ -25,9 +25,8 @@ Steps:
 2) Clone project from this repository
 3) Set up Github account
 4) Push project to your Github repository
-5) Set up AWS and the necessary Services
-6) Set up Github actions
-7) Deploy!!
+5) Set up AWS and the necessary Services 
+6) Deploy!!
 
 ### Download and install Intellij Community Edition
 You can download and install Intellij Community Edition from here
@@ -56,7 +55,7 @@ Set up a github account and repository to host this project and enable the CI/CD
 For this project, the Github Action function to deploy this app to AWS is stored in:
 
 ```code
-.github/maven-docker.aws.yml
+.github/workflows/maven-docker.aws.yml
 ```
 
 Fill in the following environment variables in the file stated above:
@@ -97,14 +96,16 @@ https://slack.com/help/articles/115005265063-Incoming-webhooks-for-Slack
 ## Solution Design
 
 ### Frameworks, Libraries and API
-| Item              | Type          | Description                                                                                                                           |
-|:------------------|:--------------|:--------------------------------------------------------------------------------------------------------------------------------------|
-| Spring Boot MAVEN | Framework     | create stand-alone, production-grade Spring based Applications that you can "just run".                                               |
-| JSON.simple       | JAVA Library  | From https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple. Allows easy handling of JSON in JAVA.                 |
-| Datatables.js     | JS Library    | From https://datatables.net/. Add advanced interaction controls to my HTML tables.                                                    |
-| Bootstrap         | CSS Framework | CSS Framework for developing responsive and mobile-first websites.                                                                    |
-| JQUERY            | JS Library    | JavaScript library designed to simplify HTML DOM tree traversal and manipulation, as well as event handling, CSS animation, and Ajax. |
-| ATMS API          | RESTful API   | Provides simple and easy to use APIs to retrieve airport and standard instrument data                                                 |
+
+| Item              | Type          | Description                                                                                                                          |
+|:------------------|:--------------|:-------------------------------------------------------------------------------------------------------------------------------------|
+| Spring Boot MAVEN | Framework     | create stand-alone, production-grade Spring based Applications that you can "just run".                                              |
+| JSON.simple       | JAVA Library  | From https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple. Allows easy handling of JSON in JAVA.                |
+| SLACK Api         | JAVA API      | Slack API to enable posting of Slack notification via Slack webhook URL                                                              |
+| Datatables.js     | JS Library    | From https://datatables.net/. Add advanced interaction controls to my HTML tables.                                                   |
+| Bootstrap         | CSS Framework | CSS Framework for developing responsive and mobile-first websites.                                                                   |
+| JQUERY            | JS Library    | JavaScript library designed to simplify HTML DOM tree traversal and manipulation, as well as event handling, CSS animation, and Ajax.|
+| ATMS API          | RESTful API   | Provides simple and easy to use APIs to retrieve airport and standard instrument data                                                |
 
 
 ### Building the backend
